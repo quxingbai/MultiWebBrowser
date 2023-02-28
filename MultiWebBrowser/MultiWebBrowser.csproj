@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Icons\BackIcon.png" />
+    <None Remove="Icons\FrontIcon.png" />
+    <None Remove="Icons\RefrushIcon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Icons\BackIcon.png" />
+    <Resource Include="Icons\RefrushIcon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1587.40" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="XmlDataTable">
+      <HintPath>E:\その世界\SuBeTe_2\QuXingBai.SuBeTe.SenTaKu\XmlDataTable\bin\Debug\net6.0-windows\XmlDataTable.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Icons\FrontIcon.png" />
+  </ItemGroup>
+
+</Project>

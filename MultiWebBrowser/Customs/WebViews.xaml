@@ -1,0 +1,272 @@
+﻿<UserControl x:Class="MultiWebBrowser.Customs.WebViews"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MultiWebBrowser.Customs"
+             mc:Ignorable="d" 
+             xmlns:cc="clr-namespace:MultiWebBrowser.Customs"
+             d:DesignHeight="450" d:DesignWidth="800" Name="THIS" >
+    <UserControl.Resources>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid  Background="#FFDDDDDD" Height="40" MouseDown="BD_Menu_MouseDown" MouseMove="BD_Menu_MouseMove">
+            <Border Margin="0,0,0,-1" Visibility="Visible"  Background="Transparent" Name="BD_Menu"  Height="auto" VerticalAlignment="Bottom" >
+                <Grid>
+                    <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" KeyDown="LIST_KeyDown" IsEnabled="True" Margin="0" Padding="0" Focusable="False" Name="LIST" Background="Transparent" BorderThickness="0" BorderBrush="{x:Null}">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.Style>
+                            <Style TargetType="ListBox">
+                                <Setter Property="ItemContainerStyle">
+                                    <Setter.Value>
+                                        <Style TargetType="ListBoxItem">
+                                            <Setter Property="FontSize" Value="15"/>
+                                            <Setter Property="BorderThickness" Value="0"/>
+                                            <Setter Property="Foreground" Value="DimGray"/>
+                                            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                            <Setter Property="Margin" Value="0"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="ListBoxItem">
+                                                        <Grid ToolTip="{Binding Url}">
+                                                            <Border CornerRadius="3" Panel.ZIndex="0" Name="BD_Shad" BorderThickness="0,5,5,0" Margin="3,0,2,1" BorderBrush="Black" Visibility="Collapsed"/>
+                                                            <Border Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=cc:WebViews},Path=ComputedItemWidth}" Margin="0" CornerRadius="5,5,0,0" Padding="7" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                                                                <Grid Margin="0,0,0,0">
+                                                                    <ContentControl HorizontalAlignment="Left" Margin="7,0,0,0" Content="{Binding Header}"/>
+                                                                    <Border Name="BD" HorizontalAlignment="Left" Height="15" VerticalAlignment="Center" BorderThickness="0,0,1,0" BorderBrush="Gray"/>
+                                                                    <Button Width="15" Height="15" HorizontalAlignment="Right" VerticalAlignment="Center" Name="BT_MenuItem" Click="BT_MenuItem_Click">
+                                                                        <Button.Template>
+                                                                            <ControlTemplate TargetType="Button">
+                                                                                <Border Name="BD" CornerRadius="2" >
+                                                                                    <ContentPresenter/>
+                                                                                </Border>
+                                                                                <ControlTemplate.Triggers>
+                                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                                        <Setter Property="Background" Value="WhiteSmoke" TargetName="BD"/>
+                                                                                    </Trigger>
+                                                                                    <Trigger Property="IsMouseOver" Value="False">
+                                                                                        <Setter Property="Background" Value="Transparent" TargetName="BD"/>
+                                                                                    </Trigger>
+                                                                                </ControlTemplate.Triggers>
+                                                                            </ControlTemplate>
+                                                                        </Button.Template>
+                                                                        <Path Stroke="Gray" Data="M0,0 L40,40 M40,0 L0,40" Stretch="UniformToFill" Width="8.3" Height="8.5"/>
+                                                                    </Button>
+                                                                </Grid>
+                                                            </Border>
+                                                        </Grid>
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="Background" Value="#FFCACACA"/>
+                                                                <Setter Property="Visibility" Value="Collapsed" TargetName="BD"/>
+                                                            </Trigger>
+                                                            <Trigger Property="IsSelected" Value="True">
+                                                                <Setter Property="Background" Value="White"/>
+                                                                <Setter Property="Visibility" Value="Collapsed" TargetName="BD"/>
+                                                                <Setter Property="Visibility" Value="Visible" TargetName="BD_Shad"/>
+                                                                <Setter Property="Effect" TargetName="BD_Shad">
+                                                                    <Setter.Value>
+                                                                        <DropShadowEffect BlurRadius="5" Direction="10" Opacity="0.2"  Color="Black" />
+                                                                    </Setter.Value>
+                                                                </Setter>
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ListBox">
+                                            <Border>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="auto"/>
+                                                        <ColumnDefinition Width="auto"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <ItemsPresenter/>
+                                                    <Grid Grid.Column="1" Margin="0,0,0,2">
+                                                        <Grid.Resources>
+                                                            <Style TargetType="Button">
+                                                                <Setter Property="Background" Value="Transparent"/>
+                                                                <Setter Property="Template">
+                                                                    <Setter.Value>
+                                                                        <ControlTemplate TargetType="Button">
+                                                                            <Border Name="BD" CornerRadius="2.5">
+                                                                                <Grid Background="Transparent">
+                                                                                    <ContentPresenter/>
+                                                                                </Grid>
+                                                                            </Border>
+                                                                            <ControlTemplate.Triggers>
+                                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                                    <Setter Property="Foreground" Value="Black"/>
+                                                                                    <Setter Property="Background" TargetName="BD" Value="whitesmoke"/>
+                                                                                </Trigger>
+                                                                            </ControlTemplate.Triggers>
+                                                                        </ControlTemplate>
+                                                                    </Setter.Value>
+                                                                </Setter>
+                                                            </Style>
+                                                        </Grid.Resources>
+                                                        <Button Foreground="DimGray" Margin="3,0,0,0" Width="30" Height="30" VerticalAlignment="Center" Name="BT_Add" Click="BT_Add_Click">
+                                                            <Path Stroke="{Binding ElementName=BT_Add,Path=Foreground}" Data="M0,25 L50,25 M25,0 L25,50" Stretch="UniformToFill" Width="13" Height="13"/>
+                                                        </Button>
+                                                    </Grid>
+                                                </Grid>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListBox.Style>
+                    </ListBox>
+                    <Border Background="Transparent" Visibility="Visible" Name="BD_Mark"/>
+                </Grid>
+            </Border>
+            <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Stretch">
+                <WrapPanel.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="Width" Value="50"/>
+                        <Setter Property="Height" Value="40"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Name="BD">
+                                        <Grid>
+                                            <ContentPresenter/>
+                                            <TextBlock Name="TEXT"/>
+                                        </Grid>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Foreground" Value="White"/>
+                                            <Setter Property="Background" TargetName="BD" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Tag}"/>
+                                        </Trigger>
+                                        <Trigger Property="IsMouseCaptured" Value="True">
+                                            <Setter Property="Background" TargetName="BD" Value="#A0000000"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </WrapPanel.Resources>
+                <Button Tag="LightGray" Name="BT_WindowTop" Click="BT_WindowTop_Click">
+                    <TextBlock Text="T" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{Binding ElementName=BT_WindowTop,Path=Foreground}"/>
+                </Button>
+                <Button Tag="DodgerBlue" Name="BT_Min" Click="BT_Min_Click">
+                    <Path Stroke="{Binding ElementName=BT_Min,Path=Foreground}" Data="M0,0 L40,0" Stretch="UniformToFill" Width="10.5" Height="10.55"/>
+                </Button>
+                <Button Tag="DodgerBlue" Name="BT_Max" Click="BT_Max_Click">
+                    <Path Stroke="{Binding ElementName=BT_Max,Path=Foreground}" Data="M0,0 L40,0 l0,40 l-40,0 L0,0" Stretch="UniformToFill" Width="10.5" Height="10.55"/>
+                </Button>
+                <Button Tag="Red" Name="BT_Close" Click="BT_Close_Click">
+                    <Path Stroke="{Binding ElementName=BT_Close,Path=Foreground}" Data="M0,0 L40,40 M40,0 L0,40" Stretch="UniformToFill" Width="10.5" Height="10.55"/>
+                </Button>
+
+            </WrapPanel>
+            <Border Background="#A0000000" Name="BD_AddWebViewInfo" Visibility="Collapsed">
+                <Grid>
+                    <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Left">
+                        <WrapPanel.Resources>
+                            <Style TargetType="Button">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="Transparent" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="true">
+                                                    <Setter Property="BorderBrush" Value="white"/>
+                                                    <Setter Property="Cursor" Value="Hand"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </WrapPanel.Resources>
+                        <TextBlock Text="标头：" FontSize="18" Margin="10,0,10,0" Foreground="White" FontWeight="Bold"/>
+                        <TextBox Background="Transparent" CaretBrush="DodgerBlue" Foreground="White" FontSize="19" Width="200" BorderThickness="0,0,0,2" Name="TEXT_AddWebView_Header" KeyDown="TEXT_AddWebView_Header_KeyDown"/>
+                        <Button Foreground="White" BorderThickness="2"  Content="确认" FontSize="14" Width="70" Margin="10,0,0,0" Name="BT_AddWebView_Ok" Click="BT_AddWebView_Ok_Click">
+                        </Button>
+                        <Button Foreground="White" BorderThickness="2"  Content="取消" FontSize="14" Width="70" Margin="10,0,0,0" Name="BT_AddWebView_No" Click="BT_AddWebView_No_Click">
+                        </Button>
+                    </WrapPanel>
+                </Grid>
+            </Border>
+        </Grid>
+        <cc:WebViewControl Grid.Row="1" SourceChanging="VIEW_SourceChanging" SourceChanged="VIEW_SourceChanged" x:Name="VIEW" Visibility="Visible"/>
+        <!--<Canvas>
+            <Border Visibility="Collapsed"  Background="#60000000" Name="BD_Menu" Canvas.Left="0" Height="auto">
+                <Grid>
+                    <ListBox KeyDown="LIST_KeyDown" IsEnabled="True" Margin="0" Padding="0" Focusable="False" Name="LIST" Background="Transparent" BorderThickness="0" BorderBrush="{x:Null}">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.Style>
+                            <Style TargetType="ListBox">
+                                <Setter Property="ItemContainerStyle">
+                                    <Setter.Value>
+                                        <Style TargetType="ListBoxItem">
+                                            <Setter Property="FontSize" Value="15"/>
+                                            <Setter Property="BorderThickness" Value="0"/>
+                                            <Setter Property="Foreground" Value="White"/>
+                                            <Setter Property="Width" Value="70"/>
+                                            <Setter Property="Margin" Value="0"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="ListBoxItem">
+                                                        <Border Margin="0,1,0,1" CornerRadius="0" Padding="5" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                                                            <Grid Margin="0,0,0,0">
+                                                                <ContentControl HorizontalAlignment="Center" Content="{Binding Header}"/>
+                                                            </Grid>
+                                                        </Border>
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsSelected" Value="True">
+                                                                <Setter Property="Background" Value="DodgerBlue"/>
+                                                            </Trigger>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="Background" Value="DodgerBlue"/>
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListBox.Style>
+                    </ListBox>
+                    <Border Background="Transparent"/>
+                </Grid>
+            </Border>
+            <Grid>
+                <Button Content="+" Width="auto" Height="auto">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="35" BorderBrush="LightGray" BorderThickness="0.5" CornerRadius="5">
+                                <TextBlock Foreground="DimGray" Text="+" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" FontWeight="Bold"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
+        </Canvas>-->
+    </Grid>
+</UserControl>
